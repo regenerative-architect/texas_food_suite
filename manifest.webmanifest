@@ -1,0 +1,59 @@
+{
+  "name": "Texas Food Sovereignty Commons",
+  "short_name": "TX Food Commons",
+  "description": "Texas-specific food affordability, water resilience, connectivity evidence and peer collaboration operating system.",
+  "id": "./index.html",
+  "start_url": "./index.html#/overview",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#07100c",
+  "theme_color": "#07100c",
+  "categories": [
+    "productivity",
+    "education",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shared projects",
+      "short_name": "Projects",
+      "url": "./index.html#/projects"
+    },
+    {
+      "name": "Multiplayer room",
+      "short_name": "Room",
+      "url": "./index.html#/collaborate"
+    },
+    {
+      "name": "Connectivity & atlas",
+      "short_name": "Connectivity",
+      "url": "./index.html#/infrastructure"
+    },
+    {
+      "name": "Advanced guides",
+      "short_name": "Guides",
+      "url": "./index.html#/guides"
+    }
+  ]
+}

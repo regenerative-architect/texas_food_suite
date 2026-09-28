@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://planetaryrestorationarchive.example/schemas/texas-food-sovereignty-workspace-v4.json",
+  "title": "Texas Food Sovereignty Commons Workspace v4",
+  "type": "object",
+  "required": [
+    "projects",
+    "tasks",
+    "comments",
+    "proposals",
+    "resources",
+    "chat",
+    "decisions"
+  ],
+  "properties": {
+    "projects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sharedRecord"
+      }
+    },
+    "proposals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sharedRecord"
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sharedRecord"
+      }
+    },
+    "chat": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sharedRecord"
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sharedRecord"
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sharedRecord"
+      }
+    },
+    "comments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sharedRecord"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sharedRecord": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "updatedAt": {
+          "type": "number",
+          "minimum": 0
+        },
+        "updatedBy": {
+          "type": "string",
+          "maxLength": 256
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

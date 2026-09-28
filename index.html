@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#07100c">
+<meta name="description" content="Texas Food Sovereignty Commons: a Texas-specific, evidence-grounded PWA for lowering food costs, water-resilient production and cross-domain peer collaboration.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<link rel="stylesheet" href="./css/styles.css">
+<title>Texas Food Sovereignty Commons</title>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<canvas id="starfield" aria-hidden="true"></canvas><div class="ambient" aria-hidden="true"></div>
+
+<div class="splash" id="splash" role="dialog" aria-modal="true" aria-labelledby="splashTitle">
+  <div class="splash-network" aria-hidden="true">
+    <span class="network-ring ring-a"></span><span class="network-ring ring-b"></span><span class="network-ring ring-c"></span>
+    <span class="network-node node-a"></span><span class="network-node node-b"></span><span class="network-node node-c"></span><span class="network-node node-d"></span>
+  </div>
+  <div class="splash-card">
+    <div class="splash-mark" aria-hidden="true">TX</div>
+    <div class="eyebrow">Price relief → resilient abundance → regional agency</div>
+    <h1 id="splashTitle">Texas Food Sovereignty Commons</h1>
+    <p>A collaborative operating system for producers, families, schools, universities, governments, businesses and institutions to reduce avoidable food-system costs while strengthening water, ecological, connectivity and supply-chain resilience.</p>
+    <div class="splash-progress" id="splashProgress" aria-label="Workspace preparation status">
+      <div class="splash-stage" data-splash-stage="connectivity"><span>1</span><strong>Connectivity</strong><small>local workspace + browser capability</small></div>
+      <div class="splash-stage" data-splash-stage="evidence"><span>2</span><strong>Evidence</strong><small>Texas source + provenance layers</small></div>
+      <div class="splash-stage" data-splash-stage="collaboration"><span>3</span><strong>Collaboration</strong><small>P2P room architecture ready</small></div>
+    </div>
+    <div class="loading-track" aria-hidden="true"><i id="splashTrackFill"></i></div>
+    <div class="splash-status" id="splashStatus" role="status" aria-live="polite">Preparing local-first workspace…</div>
+    <div class="badge-row" style="justify-content:center"><span class="badge">PWA</span><span class="badge">IndexedDB</span><span class="badge">Trystero 0.25.3 + WebRTC</span><span class="badge">WebLLM optional</span><span class="badge">No account required</span></div>
+    <div class="splash-actions"><button class="btn primary" id="enterBtn">Enter workspace now</button><button class="btn secondary" id="guideEntryBtn">Start with a guide</button></div>
+    <p class="meta splash-hint">The animation never gates access. Reduced-motion preferences disable nonessential motion.</p>
+  </div>
+</div>
+
+<header class="topbar">
+  <button class="icon-btn mobile-only" id="menuBtn" aria-label="Open navigation" aria-controls="sidebar" aria-expanded="false">☰</button>
+  <a class="brand" href="#/overview"><span class="brand-mark">TX</span><span><strong>Food Sovereignty Commons</strong><small>Affordability • water • resilience • collaboration</small></span></a>
+  <div class="topsearch"><label class="sr-only" for="globalSearch">Search this application</label><input id="globalSearch" type="search" placeholder="Search regions, water, projects, programs, R&D…"><span class="kbd">/</span></div>
+  <div class="top-actions">
+    <span class="meta hide-mobile" id="searchCount"></span>
+    <button class="icon-btn hidden" id="installBtn" data-tip="Install this PWA when your browser offers installation.">＋ Install</button>
+    <button class="icon-btn hide-mobile" id="focusBtn" data-tip="Hide or restore the side navigation for focused reading.">◎ Focus</button>
+    <button class="icon-btn" id="themeBtn" data-tip="Switch between light and dark themes.">☀</button>
+  </div>
+</header>
+
+<div class="shell">
+<aside class="sidebar" id="sidebar" aria-label="Application navigation">
+  <nav class="nav-tree" id="navTree"></nav>
+  <div class="mini-card">
+    <div class="status-row"><span><i id="netDot" class="status-dot"></i>Network</span><strong id="netState">checking</strong></div>
+    <div class="status-row"><span><i id="collabDot" class="status-dot"></i>Room</span><strong id="collabState">local</strong></div>
+    <div class="status-row"><span>Peers</span><strong id="peerCount">1</strong></div>
+    <div class="status-row"><span>Research snapshot</span><strong id="snapshotDate">—</strong></div>
+  </div>
+  <div class="side-title">Privacy boundary</div>
+  <div class="meta">Local notes and workspace snapshots remain in this browser. A collaboration room shares only the records you create in its shared workspace. No hidden telemetry is included.</div>
+</aside>
+
+<main class="workspace" id="main">
+  <div class="breadcrumbs"><a href="#/overview">Texas Commons</a><span>›</span><span id="crumbCurrent">Mission dashboard</span></div>
+
+  <section class="route active" id="route-overview">
+    <div class="hero searchable" data-search="Texas food sovereignty affordability resilience collaboration">
+      <div class="eyebrow">Texas-specific food-system R&D and deployment platform</div>
+      <h1>Lower the delivered cost of nutritious food without spending down Texas' ecological future.</h1>
+      <p>The system treats food price as an end-to-end engineering problem: production + water + aggregation + processing + cold chain + freight + retail + household access. The goal is not autarky. It is stronger regional agency, redundant supply, viable producers and faster cooperation across institutions.</p>
+      <div class="hero-actions"><a class="btn primary" href="#/projects">Open shared projects</a><a class="btn" href="#/collaborate">Join multiplayer room</a><a class="btn" href="#/guides">Use a field guide</a></div>
+      <div class="badge-row"><span class="badge">10 natural regions</span><span class="badge">16 water-planning regions</span><span class="badge">families → institutions</span><span class="badge">offline local workspace</span><span class="badge" id="webgpuBadge">WebGPU optional</span></div>
+    </div>
+    <div class="section"><div class="section-head"><div><h2>State baseline</h2><p>Current planning anchors from official or primary sources. Use county and project-level data before committing capital.</p></div></div><div class="grid g6" id="baselineGrid"></div></div>
+    <div class="section split">
+      <div class="card"><h2>Fastest credible pathway</h2><div id="fastTrack"></div></div>
+      <aside class="card sticky-card"><h2>Operating doctrine</h2><ul class="clean"><li><strong>Measure delivered cost, not ideology.</strong> A local product is not automatically cheaper or more resilient.</li><li><strong>Protect scarce water.</strong> Optimize value and nutrition per unit of constrained water, not maximum irrigated acreage.</li><li><strong>Use existing capacity first.</strong> Fill underused kitchens, trucks, coolers and pack lines before building duplicates.</li><li><strong>Anchor demand before capex.</strong> Schools, hospitals, grocers and food banks can make projects financeable when procurement rules allow.</li><li><strong>Keep trade.</strong> Regional sovereignty means agency and redundancy, not closing borders to beneficial trade.</li></ul></aside>
+    </div>
+  </section>
+
+  <section class="route" id="route-texas">
+    <div class="route-head"><div><h1>Texas ecology & production geography</h1><p>Texas spans humid forest, prairie, coast, plateau, semiarid plains and desert. Strategy should follow water, soil, heat, logistics and market context rather than a statewide template.</p></div></div>
+    <div class="callout info"><strong>Why this matters:</strong> TPWD describes rainfall from roughly 8 inches in far-west desert to roughly 56 inches in east-Texas swamps. A water-intensive system that is plausible in one region may be irresponsible or uneconomic in another.</div>
+    <div class="toolbar section"><div class="field searchbox"><label for="ecoFilter">Filter regions</label><input id="ecoFilter" placeholder="e.g. drought, cattle, coast, greenhouse"></div></div>
+    <div class="grid g2" id="ecoregionGrid"></div>
+  </section>
+
+  <section class="route" id="route-prices">
+    <div class="route-head"><div><h1>Food price mechanics</h1><p>Reduce the avoidable margin between farmgate value and the household basket while preserving food safety, producer viability, worker safety and ecological constraints.</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Stage</th><th>Typical pressure</th><th>Near-term lever</th><th>Structural lever</th><th>Measure</th></tr></thead><tbody id="priceTableBody"></tbody></table></div>
+    <div class="section split">
+      <div class="card" id="priceCalc"><h2>Transparent delivered-cost sandbox</h2><p>Enter a local unit cost such as one case, one pound or one household basket. Keep the unit consistent.</p><div class="form-grid">
+        <div class="field"><label>Farmgate / production $</label><input id="cost-farmgate" type="number" min="0" step="0.01" value="2.00"></div>
+        <div class="field"><label>Aggregation / pack $</label><input id="cost-aggregation" type="number" min="0" step="0.01" value="0.35"></div>
+        <div class="field"><label>Processing $</label><input id="cost-processing" type="number" min="0" step="0.01" value="0.25"></div>
+        <div class="field"><label>Cold/storage $</label><input id="cost-cold" type="number" min="0" step="0.01" value="0.18"></div>
+        <div class="field"><label>Transport $</label><input id="cost-transport" type="number" min="0" step="0.01" value="0.30"></div>
+        <div class="field"><label>Wholesale/retail $</label><input id="cost-retail" type="number" min="0" step="0.01" value="0.70"></div>
+        <div class="field span2"><label>Shrink / loss burden %</label><input id="cost-loss" type="number" min="0" max="100" step="0.1" value="6"></div>
+      </div></div>
+      <aside class="card sticky-card" id="costOutput"></aside>
+    </div>
+  </section>
+
+  <section class="route" id="route-water">
+    <div class="route-head"><div><h1>Water architecture</h1><p>For much of Texas, food resilience is a water-allocation problem. The hierarchy starts with measurement and management before expensive new supply.</p></div></div>
+    <div class="callout warn"><strong>Planning rule:</strong> Compare gross margin, nutrition or marketable output per acre-foot alongside yield per acre. Deep groundwater, reuse and desalination options can be valuable, but their energy, quality, concentrate and ecological costs must be explicit.</div>
+    <div class="section table-wrap"><table><thead><tr><th>Layer</th><th>Action</th><th>Why</th><th>Maturity</th></tr></thead><tbody id="waterTableBody"></tbody></table></div>
+    <div class="section grid g3">
+      <article class="card"><h3>Farm scale</h3><p>Meter → schedule → apply efficiently → retain rainfall → change enterprise mix when marginal irrigation stops paying.</p></article>
+      <article class="card"><h3>Regional scale</h3><p>Coordinate aquifers, rivers, municipal reuse, drought plans and agricultural demand with the relevant planning institutions.</p></article>
+      <article class="card"><h3>Research scale</h3><p>Test brackish water, managed recharge and closed-loop systems against complete water-energy-food economics rather than technical feasibility alone.</p></article>
+    </div>
+  </section>
+
+  <section class="route" id="route-rd">
+    <div class="route-head"><div><h1>Next-generation R&D portfolio</h1><p>Separate deployable practice from selective commercial systems and experimental pilots. A technology earns scale through Texas-specific unit economics, not novelty.</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Technology</th><th>Readiness</th><th>Best collaborators</th><th>Potential value</th><th>Constraint</th><th>Evidence context</th></tr></thead><tbody id="rdTableBody"></tbody></table></div>
+    <div class="section callout"><strong>Scale gate:</strong> every pilot should meter water, energy, labor, capex utilization, marketable output, maintenance and buyer acceptance. Publish negative results; they prevent expensive repetition.</div>
+  </section>
+
+  <section class="route" id="route-network">
+    <div class="route-head"><div><h1>Regional food network architecture</h1><p>A food-sovereignty network is a mesh of productive landscapes, processing, storage, logistics and anchor demand—not a single mega-project.</p></div></div>
+    <div class="grid g4" id="flowGrid"></div>
+    <div class="section split">
+      <div class="card"><h2>Project-domain constellation</h2><p>The visualization is generated from the shared project portfolio. Domains become nodes around the commons.</p><div class="canvas-wrap"><canvas id="networkCanvas" aria-label="Project domain network visualization"></canvas></div></div>
+      <aside class="card sticky-card"><h2>Interoperability contract</h2><ul class="clean"><li>Common units and lot identifiers.</li><li>Availability windows, not sensitive business records.</li><li>Temperature and food-safety requirements.</li><li>Buyer service levels and pack specs.</li><li>Capacity status and backup dependencies.</li><li>Open JSON export so a project can leave this tool.</li></ul></aside>
+    </div>
+  </section>
+
+  <section class="route" id="route-projects">
+    <div class="route-head"><div><h1>Shared project portfolio</h1><p>Projects are stored in the local room snapshot and synchronized to connected peers using timestamped records.</p></div><button class="btn primary" id="newProjectBtn">＋ Add project</button></div>
+    <div class="callout info"><span id="workspaceUpdated">Local workspace</span>. Changes in a joined Trystero room are sent directly to peers; offline changes remain local until peers reconnect and exchange snapshots.</div>
+    <div class="section grid g2" id="projectGrid"></div>
+  </section>
+
+  <section class="route" id="route-collaborate">
+    <div class="route-head"><div><h1>Multiplayer collaboration room</h1><p>Trystero provides decentralized discovery; after discovery, application traffic travels peer-to-peer over WebRTC. No account or custom backend is required for the default room mode.</p></div></div>
+    <div class="grid g2">
+      <div class="card"><h2>1. Identity & room</h2><div class="form-grid">
+        <div class="field"><label for="profileName">Display name</label><input id="profileName" value="Steward" data-tip="A room display label. Use only the identity detail necessary for the collaboration."></div>
+        <div class="field"><label for="profileOrg">Organization / team</label><input id="profileOrg" value="Independent"></div>
+        <div class="field"><label for="profileRole">Disciplinary / operational role</label><select id="profileRole" data-tip="A collaboration label used to make disciplinary context visible. It does not verify professional credentials, organizational authority or legal identity."><option>Community</option><option>Producer</option><option>Rancher</option><option>School</option><option>University / R&D</option><option>Local government</option><option>State / regional institution</option><option>Corporation</option><option>Grocer / distributor</option><option>Health / nutrition</option><option>Nonprofit</option><option>Financier</option></select></div>
+        <div class="field"><label for="profileRegion">Texas region</label><select id="profileRegion"><option>Statewide</option><option>Piney Woods</option><option>Gulf Prairies & Marshes</option><option>Post Oak Savannah</option><option>Blackland Prairies</option><option>Cross Timbers</option><option>South Texas Plains</option><option>Edwards Plateau</option><option>Rolling Plains</option><option>High Plains</option><option>Trans-Pecos</option></select></div>
+        <div class="field"><label for="roomId">Room code</label><input id="roomId" value="texas-commons" data-tip="Peers must use the same app, room code and—if set—password. Room codes are not access control by themselves."></div>
+        <div class="field"><label for="roomStrategy">Discovery network</label><select id="roomStrategy" data-tip="Discovery exchanges WebRTC session information; application traffic moves peer-to-peer after connection. Nostr is the default. MQTT, BitTorrent and IPFS are selectable alternatives with different public-network dependencies."><option value="nostr">Nostr (default)</option><option value="mqtt">MQTT discovery</option><option value="torrent">BitTorrent tracker discovery</option><option value="ipfs">IPFS discovery</option></select></div>
+        <div class="field span2"><label for="roomPassword">Optional room password</label><input id="roomPassword" type="password" autocomplete="new-password" data-tip="A strong shared secret strengthens confidentiality of Trystero session-description data during discovery. It must match between peers; share it through a separate trusted channel. It does not verify participant identity."></div>
+      </div><details style="margin-top:10px"><summary>Advanced: optional TURN fallback</summary><div class="details-body"><p>Some networks block direct P2P. Trystero can use a TURN server as a relay while keeping WebRTC transport encrypted. Credentials are used only in this browser session and are not saved by this app.</p><div class="form-grid"><div class="field span2"><label>TURN URL</label><input id="turnUrl" placeholder="turn:your-server.example:3478"></div><div class="field"><label>Username</label><input id="turnUser"></div><div class="field"><label>Credential</label><input id="turnCredential" type="password"></div></div></div></details><div class="inline-actions" style="margin-top:10px"><button class="btn primary" id="connectBtn">Connect room</button><button class="btn" id="disconnectBtn" disabled>Disconnect</button></div><div class="meta" id="roomTechnicalState" style="margin-top:8px">Local workspace ready. Remote P2P starts only when you connect.</div></div>
+      <div class="card"><h2>2. Peer presence <span class="tip-chip" tabindex="0" data-tip="Presence is ephemeral room metadata. Trystero peer identifiers and self-chosen names are not proof of a human identity, organization, profession or authority.">?</span></h2><div class="callout warn"><strong>Identity boundary:</strong> peer IDs and display labels are unverified. Confirm sensitive collaborators through an independent trusted channel before sharing non-public information or relying on claimed authority.</div><div class="peer-list" id="peerList"></div><div class="section"><h3>Direct audio/video</h3><p>Media permission is requested only when you press Start. Streams go to connected peers through the room.</p><label class="pill"><input id="mediaVideo" type="checkbox"> include video</label><div class="inline-actions" style="margin-top:8px"><button class="btn small" id="mediaStart">Start media</button><button class="btn small" id="mediaStop">Stop media</button></div><div class="video-grid" id="videoGrid" style="margin-top:10px"></div></div></div>
+    </div>
+
+    <div class="section grid g2">
+      <div class="card"><h2>Room chat</h2><div class="chat-log" id="chatLog"></div><form id="chatForm" class="toolbar" style="margin-top:8px"><div class="field searchbox"><label class="sr-only" for="chatInput">Room message</label><input id="chatInput" maxlength="4000" placeholder="Share a concise update, dependency or request…"></div><button class="btn primary">Send</button></form></div>
+      <div class="card"><h2>Peer file exchange</h2><p>Trystero chunks binary transfers over WebRTC. This UI caps files at 20 MB to reduce accidental heavy transfers. Received files are never auto-opened.</p><label class="btn" for="peerFile">Choose file to send</label><input id="peerFile" type="file" hidden><div id="fileInbox" style="margin-top:10px"></div></div>
+    </div>
+
+    <div class="section grid g2">
+      <div class="card"><h2>Proposals & advisory decisions</h2><form id="proposalForm" class="stack"><div class="field"><label>Proposal title</label><input id="proposalTitle" required maxlength="180" placeholder="e.g. Run a 90-day cross-dock pilot"></div><div class="field"><label>Proposal</label><textarea id="proposalText" required maxlength="4000"></textarea></div><div class="field"><label>Decision rule</label><select id="proposalRule"><option>advisory vote</option><option>consensus target</option><option>lead decides after consultation</option><option>unanimous for this pilot</option></select></div><button class="btn primary">Share proposal</button></form><div class="stack section" id="proposalList"></div></div>
+      <div class="card"><h2>Needs & offers exchange</h2><form id="resourceForm" class="form-grid"><div class="field"><label>Type</label><select id="resourceKind"><option value="need">Need</option><option value="offer">Offer</option></select></div><div class="field"><label>Category</label><input id="resourceCategory" placeholder="cold storage, produce, truck, research…"></div><div class="field span2"><label>Item / capability</label><input id="resourceItem" required maxlength="220"></div><div class="field"><label>Quantity / availability</label><input id="resourceQuantity"></div><div class="field"><label>Location / region</label><input id="resourceLocation"></div><button class="btn primary span2">Post to room</button></form><div class="section" id="resourceList"></div></div>
+    </div>
+
+    <div class="section grid g3 collaboration-objects">
+      <div class="card"><h2>Tasks</h2><form id="taskForm" class="stack"><div class="field"><label for="taskProject">Project</label><select id="taskProject"></select></div><div class="field"><label for="taskTitle">Task</label><input id="taskTitle" required maxlength="220" placeholder="Define the next verifiable unit of work"></div><div class="field"><label for="taskOwner">Owner / working group</label><input id="taskOwner" maxlength="160"></div><div class="field"><label for="taskStatus">Status</label><select id="taskStatus"><option>open</option><option>active</option><option>blocked</option><option>complete</option></select></div><button class="btn primary">Share task</button></form><div class="section compact-list" id="taskList"></div></div>
+      <div class="card"><h2>Project comments</h2><form id="commentForm" class="stack"><div class="field"><label for="commentProject">Project</label><select id="commentProject"></select></div><div class="field"><label for="commentText">Comment / evidence note</label><textarea id="commentText" required maxlength="3000" placeholder="Record a dependency, observation, evidence caveat or implementation note…"></textarea></div><button class="btn primary">Share comment</button></form><div class="section compact-list" id="commentList"></div></div>
+      <div class="card"><h2>Decision log</h2><form id="decisionForm" class="stack"><div class="field"><label for="decisionProject">Project</label><select id="decisionProject"></select></div><div class="field"><label for="decisionText">Decision / resolution</label><textarea id="decisionText" required maxlength="3000"></textarea></div><div class="field"><label for="decisionBasis">Basis</label><input id="decisionBasis" maxlength="500" placeholder="e.g. pilot data + advisory vote; legal authority remains external"></div><button class="btn primary">Log decision</button></form><div class="section compact-list" id="decisionList"></div></div>
+    </div>
+  </section>
+
+  <section class="route" id="route-governance">
+    <div class="route-head"><div><h1>Cross-domain institution matrix</h1><p>This is a neutral capability map, not a political endorsement or ranking. Texas food affordability crosses agriculture, water, education, health, transport, emergency management, commerce and household systems.</p></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Layer</th><th>Entities</th><th>Capabilities</th><th>Collaboration function</th><th>Source</th></tr></thead><tbody id="institutionTableBody"></tbody></table></div>
+    <div class="section"><div class="section-head"><div><h2>Current program hooks</h2><p>Program status changes. Use the official page before applying, budgeting or promising funds.</p></div></div><div class="grid g3" id="programGrid"></div></div>
+    <div class="section"><div class="section-head"><div><h2>Role playbooks</h2><p>Concrete starting actions by entity class.</p></div></div><div id="playbookList"></div></div>
+  </section>
+
+  <section class="route" id="route-infrastructure">
+    <div class="route-head"><div><h1>Connectivity, evidence & 111-section atlas</h1><p>Connectivity is treated as shared enabling infrastructure for agriculture, cold chain, schools, libraries, clinics, workforce development and emergency continuity—not as proof that a location has affordable or reliable service.</p></div><span class="pill info">snapshot <span id="connectivitySnapshot">2026-09-28</span></span></div>
+    <div class="callout info"><strong>Evidence boundary:</strong> official broadband awards, maps and program records describe different states of reality. Keep <em>announced</em>, <em>awarded</em>, <em>under construction</em> and <em>operational</em> separate, and never infer household performance or affordability from availability alone.</div>
+    <div class="section"><div class="section-head"><div><h2>Texas enabling-infrastructure evidence</h2><p>BEAD/BOOT, FCC/Fabric, Census, E-Rate, library, telehealth and workforce layers with explicit food-system relevance.</p></div></div><div class="grid g3" id="connectivityEvidenceGrid"></div></div>
+    <div class="section card">
+      <div class="section-head"><div><h2>Original 111-section Connectivity & Opportunity requirements atlas</h2><p>The previous atlas is preserved as a searchable implementation checklist and cross-domain dependency map.</p></div><span class="pill" id="atlasCount">111 requirements</span></div>
+      <div class="toolbar atlas-toolbar"><div class="field searchbox"><label for="atlasFilter">Filter requirements</label><input id="atlasFilter" type="search" placeholder="mapping, telehealth, E-Rate, emergency, privacy…"></div><div class="field"><label for="atlasGroup">System layer</label><select id="atlasGroup"><option value="">All layers</option><option>Foundation</option><option>Access & technologies</option><option>Devices, skills & education</option><option>Opportunity & cross-domain access</option><option>Mapping, infrastructure & scenarios</option><option>Projects, funding & participation</option><option>Evidence, data, privacy & UX</option><option>Synthesis, resilience & quality</option></select></div></div>
+      <div class="atlas-grid" id="requirementsAtlas"></div>
+    </div>
+  </section>
+
+  <section class="route" id="route-ai">
+    <div class="route-head"><div><h1>Local AI planning lab</h1><p>Optional WebLLM runs an open model in your browser using WebGPU. The model is downloaded on first use and cached locally by WebLLM; no AI request is sent to this application's server.</p></div></div>
+    <div class="callout warn"><strong>Use it as a synthesis aid, not an authority.</strong> The local model can hallucinate. Verify laws, funding, engineering constraints, food safety and current prices against primary sources.</div>
+    <div class="section split">
+      <div class="card"><h2>Ask the local planner</h2><div class="field"><label for="aiPrompt">Question / planning task</label><textarea id="aiPrompt" placeholder="Example: Build a 90-day pilot linking one High Plains producer group, a school buyer, a cold-storage operator and a university water team. Separate facts, assumptions and experiments."></textarea></div><div class="field" style="margin-top:8px"><label for="aiModel">Model</label><select id="aiModel"><option>Qwen2.5-0.5B-Instruct-q4f16_1-MLC</option><option>Qwen2.5-1.5B-Instruct-q4f16_1-MLC</option><option>Llama-3.2-1B-Instruct-q4f16_1-MLC</option></select></div><div class="inline-actions" style="margin-top:10px"><button class="btn primary" id="aiRun">Load / run locally</button><button class="btn" id="aiUnload">Unload model</button></div><div class="ai-state" style="margin-top:10px"><span class="pill" id="aiStateText">Idle</span></div><progress id="aiProgress" max="1" value="0"></progress></div>
+      <aside class="card sticky-card"><h2>Model footprint</h2><p>The smallest default model is chosen to reduce first-load burden. Larger models can improve synthesis but require more memory, download time and GPU resources.</p><ul class="clean"><li>Requires a WebGPU-capable browser/device.</li><li>First use requires internet access to fetch the WebLLM module and model artifacts.</li><li>Model artifacts are cached for later use.</li><li>The PWA remains useful without AI.</li></ul></aside>
+    </div>
+    <div class="section ai-output" id="aiOutput">Local AI is opt-in. No model is loaded yet.</div>
+  </section>
+
+  <section class="route" id="route-guides">
+    <div class="route-head"><div><h1>Simplified Advanced Guides</h1><p>Each guide moves through four depths: one-minute explanation → actionable steps → advanced explanation → expert / implementation detail. Stop at the depth that matches your role.</p></div></div>
+    <div class="guide-depth-legend"><span>1 · One minute</span><span>2 · Act</span><span>3 · Advanced</span><span>4 · Implement</span></div>
+    <div id="guideList"></div>
+  </section>
+
+  <section class="route" id="route-sources">
+    <div class="route-head"><div><h1>Evidence, integrity & limitations</h1><p>The research snapshot is dated. Source links remain visible so claims can be re-verified as programs, laws, climate conditions and markets change.</p></div></div>
+    <div class="grid g3">
+      <article class="card"><h3>Fact</h3><p>Values linked to a cited primary/official source, such as USDA farm counts or TPWD rainfall ranges.</p></article>
+      <article class="card"><h3>Inference / design</h3><p>System architecture derived from multiple facts, such as pooling loads to attack partial-truck logistics cost.</p></article>
+      <article class="card"><h3>Pilot / hypothesis</h3><p>Ideas that require measured testing, such as a specific agrivoltaic crop configuration or brackish-water treatment economics.</p></article>
+    </div>
+    <div class="section"><h2>Evidence ledger</h2><div class="source-list" id="sourceList"></div></div>
+    <div class="section grid g2">
+      <article class="card"><h2>Data sovereignty</h2><ul class="clean"><li>No built-in analytics or telemetry.</li><li>IndexedDB stores browser-local state; export creates a portable JSON backup.</li><li>Remote collaboration is peer-to-peer after Trystero discovery; a local BroadcastChannel fallback supports workshops/testing.</li><li>Room participants can receive shared records. Do not put secrets, personal health data, credentials or regulated records into the shared workspace.</li><li>There is no automatic cross-device persistence unless a peer or user exports/restores state.</li></ul></article>
+      <article class="card"><h2>Zero-Harm / Anti-Inversion</h2><p>Use the platform to increase affordable, safe, voluntary access to food and shared capacity. Do not weaponize scarcity, manipulate vulnerable households, expose private farm/business information, bypass food-safety controls or turn resilience infrastructure into coercive surveillance.</p><p>Measures should reward real public benefit: lower avoidable cost, reduced waste, reliable access, producer viability, water stewardship and ecological durability.</p></article>
+    </div>
+    <div class="section card"><h2>Networking limitations</h2><p>Trystero needs a discovery medium to exchange WebRTC session information. Once peers connect, application data is sent directly peer-to-peer and encrypted by WebRTC. Some network combinations block direct P2P; a TURN relay can be configured. A room code is not identity verification. Use a shared password and an out-of-band trust process for private groups.</p></div>
+    <div class="section card"><h2>Attributions & licenses</h2><p>Application concept and compilation: Foster + Navi / Planetary Restoration Archive. Original bundle code in this project is provided under the MIT License unless a file says otherwise. Trystero is an independent MIT-licensed project by Dan Motzenbecker and contributors. WebLLM is an independent open-source project by MLC contributors; consult its repository for its license and model-specific licenses. Government/source material remains subject to each source's terms. No third-party proprietary code is copied into this bundle; integrations load documented public modules at runtime.</p></div>
+  </section>
+
+  <section class="route" id="route-settings">
+    <div class="route-head"><div><h1>Settings, diagnostics & portable data</h1><p>Local preferences are small and durable; structured workspace data lives in IndexedDB when available.</p></div></div>
+    <div class="grid g2">
+      <div class="card"><h2>Display</h2><div class="form-grid"><div class="field"><label for="themeSelect">Theme</label><select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option></select></div><div class="field"><label for="densitySelect">Density</label><select id="densitySelect"><option value="comfortable">Comfortable</option><option value="compact">Compact</option></select></div><div class="field span2"><label class="pill"><input type="checkbox" id="fxToggle" checked> ambient visual effects</label></div></div></div>
+      <div class="card"><h2>Backups & interoperability</h2><p>Backups include local preferences and room snapshots. Import validates the application backup header and schema version before writing.</p><div class="inline-actions"><button class="btn primary" id="exportData">Export full JSON backup</button><label class="btn" for="importData">Import backup</label><input id="importData" type="file" accept="application/json" hidden><button class="btn" id="exportWorkspace">Export current workspace only</button></div></div>
+    </div>
+    <div class="section"><h2>Browser capability diagnostics</h2><div class="grid g6" id="diagGrid"></div></div>
+    <div class="section card"><h2>Deployment note</h2><p>Use HTTPS. GitHub Pages works for the static PWA and default Trystero modes. Service workers do not run from <code>file://</code>. The original standalone research page is preserved as <a id="oldVersionLink" href="./legacy-singlefile.html">legacy-singlefile.html</a>.</p><p class="meta">Application schema <span id="schemaVersion">—</span>. See README.md and docs/DEPLOYMENT.md in the ZIP.</p></div>
+  </section>
+
+  <footer class="footer">Texas Food Sovereignty Commons · Foster + Navi / Planetary Restoration Archive · evidence snapshot <span id="snapshotDateFooter">2026-09-28</span>. Build systems that leave people, land and institutions more capable than before.</footer>
+</main>
+</div>
+
+<div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+  <div class="modal"><div class="modal-head"><h2 id="projectModalTitle">Add shared project</h2><button class="icon-btn" id="projectModalClose" aria-label="Close">×</button></div>
+    <form id="projectForm" class="form-grid" style="margin-top:12px"><input id="projectId" type="hidden"><div class="field span2"><label>Project title</label><input id="projectTitle" required autofocus maxlength="180"></div><div class="field"><label>Domain</label><input id="projectDomain" value="cross-domain"></div><div class="field"><label>Texas region</label><input id="projectRegion" value="Statewide"></div><div class="field"><label>Lead / working group</label><input id="projectLead"></div><div class="field"><label>Status</label><select id="projectStatus"><option value="concept">concept</option><option value="scoping">scoping</option><option value="active">active</option><option value="blocked">blocked</option><option value="complete">complete</option></select></div><div class="field span2"><label>Intended impact</label><textarea id="projectImpact" maxlength="3000"></textarea></div><div class="field span2"><label>Dependencies / needs</label><textarea id="projectNeeds" maxlength="3000"></textarea></div><div class="inline-actions span2"><button class="btn primary">Save & sync</button><button type="button" class="btn" onclick="document.getElementById('projectModal').classList.remove('open')">Cancel</button></div></form>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip" role="tooltip"></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
+<noscript><div class="noscript"><strong>JavaScript is disabled.</strong> The source bundle still contains README, deployment documentation and the preserved standalone research file <a href="./legacy-singlefile.html">legacy-singlefile.html</a>, but collaboration, local storage and interactive tools require JavaScript.</div></noscript>
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>

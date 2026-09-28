@@ -1,0 +1,9 @@
+{
+  "name": "texas-food-commons-legacy-ws-adapter",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Optional legacy WebSocket room relay. The normal Texas Food Sovereignty Commons multiplayer path uses Trystero/WebRTC and does not require this adapter.",
+  "scripts": {"start": "node server.mjs"},
+  "dependencies": {"ws": "^8.18.0"}
+}
