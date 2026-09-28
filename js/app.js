@@ -278,15 +278,89 @@ function setupPWA(){
 }
 
 function closeAllModals(){$$('.modal-backdrop.open').forEach(m=>m.classList.remove('open'))}
-function dismissSplash(){const s=$('#splash');if(!s.classList.contains('dismissed')){s.classList.add('dismissed');sessionStorage.setItem('txfs:splash','seen');setTimeout(()=>s.setAttribute('aria-hidden','true'),500)}}
+function dismissSplash(){
+  const s = $('#splash');
+  if (!s) return;
+
+  s.classList.add('dismissed');
+  s.setAttribute('aria-hidden','true');
+
+  try {
+    sessionStorage.setItem('txfs:splash','seen');
+  } catch (err) {
+    console.warn('Splash state could not be saved:', err);
+  }
+
+  setTimeout(() => {
+    s.hidden = true;
+  }, 500);
+}
+
 function setupSplash(){
-  if(sessionStorage.getItem('txfs:splash')==='seen')dismissSplash();
-  $('#enterBtn').onclick=dismissSplash;$('#guideEntryBtn').onclick=()=>{dismissSplash();setRoute('guides')};
-  const reduced=prefs.reducedFx||matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const stages=[['connectivity','Local workspace and capability checks ready',34],['evidence','Texas evidence and provenance layers indexed',67],['collaboration','Peer collaboration architecture ready',100]];
-  const activate=(name,status,pct)=>{$$('[data-splash-stage]').forEach(el=>{const i=stages.findIndex(x=>x[0]===el.dataset.splashStage),cur=stages.findIndex(x=>x[0]===name);el.classList.toggle('active',i===cur);el.classList.toggle('done',i<cur||pct===100&&i===cur)});$('#splashStatus').textContent=status;$('#splashTrackFill').style.width=`${pct}%`};
-  if(reduced){activate('collaboration','Workspace ready. Motion reduced by preference.',100);return}
-  stages.forEach((st,i)=>setTimeout(()=>activate(...st),260+i*520));
+  const enterBtn = $('#enterBtn');
+  const guideBtn = $('#guideEntryBtn');
+
+  // Wire escape controls FIRST.
+  enterBtn?.addEventListener('click', dismissSplash);
+
+  guideBtn?.addEventListener('click', () => {
+    dismissSplash();
+    setRoute('guides');
+  });
+
+  // Already viewed this session.
+  try {
+    if (sessionStorage.getItem('txfs:splash') === 'seen') {
+      dismissSplash();
+      return;
+    }
+  } catch {}
+
+  const reduced =
+    prefs.reducedFx ||
+    matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const stages = [
+    ['connectivity','Local workspace and capability checks ready',34],
+    ['evidence','Texas evidence and provenance layers indexed',67],
+    ['collaboration','Peer collaboration architecture ready',100]
+  ];
+
+  const activate = (name,status,pct) => {
+    $$('[data-splash-stage]').forEach(el => {
+      const i = stages.findIndex(x => x[0] === el.dataset.splashStage);
+      const cur = stages.findIndex(x => x[0] === name);
+
+      el.classList.toggle('active',i === cur);
+      el.classList.toggle(
+        'done',
+        i < cur || (pct === 100 && i === cur)
+      );
+    });
+
+    $('#splashStatus').textContent = status;
+    $('#splashTrackFill').style.width = `${pct}%`;
+  };
+
+  if (reduced) {
+    activate(
+      'collaboration',
+      'Workspace ready. Motion reduced by preference.',
+      100
+    );
+
+    // Automatically leave splash.
+    setTimeout(dismissSplash, 350);
+    return;
+  }
+
+  stages.forEach((stage,i) => {
+    setTimeout(() => activate(...stage), 260 + i * 520);
+  });
+
+  // THIS WAS MISSING:
+  // close shortly after the third stage reaches 100%.
+  setTimeout(dismissSplash, 2100);
 }
 
 function startStars(){
