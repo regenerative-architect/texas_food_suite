@@ -242,6 +242,40 @@
 
 <div class="tooltip" id="tooltip" role="tooltip"></div><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <noscript><div class="noscript"><strong>JavaScript is disabled.</strong> The source bundle still contains README, deployment documentation and the preserved standalone research file <a href="./legacy-singlefile.html">legacy-singlefile.html</a>, but collaboration, local storage and interactive tools require JavaScript.</div></noscript>
+<script>
+(() => {
+  const closeSplash = () => {
+    const splash = document.getElementById('splash');
+    if (!splash) return;
+
+    splash.classList.add('dismissed');
+    splash.setAttribute('aria-hidden', 'true');
+
+    setTimeout(() => {
+      splash.hidden = true;
+    }, 500);
+  };
+
+  document
+    .getElementById('enterBtn')
+    ?.addEventListener('click', closeSplash);
+
+  // Emergency escape: Escape key always exits splash.
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeSplash();
+  });
+
+  // Fail-safe: a broken secondary module should never trap the user.
+  setTimeout(() => {
+    const splash = document.getElementById('splash');
+    if (splash && !splash.classList.contains('dismissed')) {
+      closeSplash();
+    }
+  }, 5000);
+})();
+</script>
+
+<script type="module" src="./js/app.js"></script>
 <script type="module" src="./js/app.js"></script>
 </body>
 </html>
