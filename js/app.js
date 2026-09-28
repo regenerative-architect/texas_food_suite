@@ -350,17 +350,17 @@ function setupSplash(){
     );
 
     // Automatically leave splash.
-    setTimeout(dismissSplash, 350);
+    setTimeout(dismissSplash, 5500);
     return;
   }
 
   stages.forEach((stage,i) => {
-    setTimeout(() => activate(...stage), 260 + i * 520);
+    setTimeout(() => activate(...stage), 500 + i * 1000);
   });
 
   // THIS WAS MISSING:
   // close shortly after the third stage reaches 100%.
-  setTimeout(dismissSplash, 2100);
+  setTimeout(dismissSplash, 5500);
 }
 
 function startStars(){
